@@ -29,7 +29,11 @@ jobs:
           with:
             name: my-artifact
             path: downloaded-artifact
-          
+        - name: List downloaded files
+          run: ls -l downloaded-artifact/
+
+        - name: Display artifact content
+          run: cat downloaded-artifact/artifacts.txt
 
      
          
