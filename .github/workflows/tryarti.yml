@@ -12,7 +12,7 @@ jobs:
        - name: Build project
          run: |
            mkdir -p output
-           echo "HELLO HEYY" > output/artifacts.txt
+           ls -lh > output/artifacts.txt
            ls -l output/
            cat output/artifacts.txt
        - name: upload artifact
