@@ -1,0 +1,40 @@
+name: Command output capture
+
+on: [push]
+jobs:
+  capture-output:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Linux command and capture output
+        run:  |
+          echo "Current Date and time" > capture_output.txt
+          date >> capture_output.txt
+          cat capture_output.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: mine-artifact
+          path: capture_output.txt
+  download:
+    runs-on: ubuntu-latest
+    needs: capture-output
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mine-artifact
+          path: downloaded-artifact
+
+      - name: Display artifact content
+        run: |
+          ls -l downloaded-artifact/ || echo "Directory not found"
+          cat downloaded-artifact/capture_output.txt || echo "File not found"
+
+  
+  
